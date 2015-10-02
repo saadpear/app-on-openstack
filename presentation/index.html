@@ -46,19 +46,22 @@
             <table>
               <tbody>
                 <tr>
-                  <td>Everett Toews</td>
-                  <td><a href="https://twitter.com/everett_toews" target="_blank">@everett_toews</a></td>
+                  <td>Egle Sigler</td>
+                  <td><a href="https://twitter.com/eglute" target="_blank">@eglute</a></td>
                 </tr>
                 <tr>
                   <td>Dana Bauer</td>
-                  <td><a href="https://twitter.com/geography76" target="_blank">@geography76</a></td>
+                  <td><a href="https://twitter.com/agentdana" target="_blank">@agentdana</a></td>
                 </tr>
               </tbody>
             </table>
-            <h4><a href="http://rack.to/app-on-os">rack.to/app-on-os</a></h4>
+            <h4><a href="http://rack.to/app-on-os">TODO: change this link</a></h4>
           </center>
         </section>
-
+        <section id="goal">
+          <h1>Note</h1>
+          <p>This material originally created by Everett Toews and Dana Bauer.
+        </section>
         <section id="goal">
           <h1>Goal</h1>
           <p>To give you the foundation of building and deploying an application on OpenStack and to give you the confidence to use tools of a higher level of abstraction in the future.
@@ -411,7 +414,7 @@ source $HOME/.profile
           <h2>Install OpenStack Client</h2>
           <pre><code data-trim class="bash">
 mkvirtualenv osc
-pip install python-openstackclient==1.3.0
+pip install python-openstackclient==1.6.0
 
 openstack --version
 openstack complete > .osc.bash_completion
@@ -450,12 +453,12 @@ openstack server list --format json
           </code></pre>
         </section>
 
-        <section id="qcon-key">
+        <section id="ghc-key">
           <h2>SSH Key for Deploys</h2>
           <pre><code data-trim class="bash">
-openstack keypair create $OS_USERNAME-qcon &gt; $HOME/.ssh/id_rsa.qcon_deploy
+openstack keypair create $OS_USERNAME-ghc &gt; $HOME/.ssh/id_rsa.ghc_deploy
 
-chmod 400 $HOME/.ssh/id_rsa.qcon_deploy
+chmod 400 $HOME/.ssh/id_rsa.ghc_deploy
           </code></pre>
         </section>
 
@@ -463,51 +466,11 @@ chmod 400 $HOME/.ssh/id_rsa.qcon_deploy
 
 
         <section id="deployment-1">
-          <h1>Deployment</h1>
+          <h2>Deployment and Orchestration</h2>
+          <h3>Heat Salt Ansible</h3>
+		  <h3>Chef Puppet Docker</h3>
+          <h3>Kubernetes CLI</h3>	  
         </section>
-
-        <section>
-          <h1>Orchestration</h1>
-          <h2>(Heat)</h2>
-        </section>
-
-        <section>
-          <h1>Salt</h1>
-        </section>
-
-        <section>
-          <h1>Terraform</h1>
-        </section>
-
-        <section>
-          <h1>Ansible</h1>
-        </section>
-
-        <section>
-          <h1>Chef</h1>
-        </section>
-
-        <section>
-          <h1>Puppet</h1>
-        </section>
-
-        <section>
-          <h1>Docker</h1>
-        </section>
-
-        <section>
-          <h1>Kubernetes</h1>
-        </section>
-
-        <section>
-          <h1>CLI</h1>
-        </section>
-
-        <section>
-          <h1>and Ansible</h1>
-        </section>
-
-
 
 
         <section id="break">
@@ -528,7 +491,7 @@ chmod 400 $HOME/.ssh/id_rsa.qcon_deploy
         <section>
           <h2>Clone the Code</h2>
           <pre><code data-trim class="bash">
-git clone https://github.com/everett-toews/app-on-openstack.git
+git clone https://github.com/eglute/app-on-openstack.git
           </code></pre>
         </section>
 
@@ -714,7 +677,7 @@ $HOME/app-on-openstack/code/worker/deploy.py
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/worker/deploy.py" target="_blank">deploy.py</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/worker/deploy.py" target="_blank">deploy.py</a></h2>
         </section>
 
 
@@ -746,7 +709,7 @@ echo 'export IMAGE_NAME="'$IMAGE_NAME'"' >> $HOME/.profile
         </section>
 
         <section>
-          <h2>Pick an Flavor</h2>
+          <h2>Pick a Flavor</h2>
           <pre><code data-trim class="bash">
 openstack flavor list
 
@@ -773,7 +736,7 @@ more $HOME/api_env.rc
 openstack server create \
   --image "$IMAGE_NAME" \
   --flavor $FLAVOR_ID \
-  --key-name $OS_USERNAME-qcon \
+  --key-name $OS_USERNAME-ghc \
   --user-data $HOME/app-on-openstack/code/api/deploy.sh \
   --config-drive true \
   --file /root/db_env.rc=$HOME/db_env.rc \
@@ -787,8 +750,8 @@ openstack server create \
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/api/requirements.txt" target="_blank">requirements.txt</a></h2>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/api/deploy.sh" target="_blank">deploy.sh</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/api/requirements.txt" target="_blank">requirements.txt</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/api/deploy.sh" target="_blank">deploy.sh</a></h2>
         </section>
 
         <section>
@@ -816,13 +779,13 @@ more $HOME/api_ips.rc
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/api/watermark/v1/images.py#L38-48" target="_blank">images.py</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/api/watermark/v1/images.py#L38-48" target="_blank">images.py</a></h2>
         </section>
 
         <section>
           <h2>Check any API Server</h2>
           <pre><code data-trim class="bash">
-ssh -i $HOME/.ssh/id_rsa.qcon_deploy root@any.api.server.ip
+ssh -i $HOME/.ssh/id_rsa.ghc_deploy root@any.api.server.ip
 
 tail -f /var/log/cloud-init-output.log
 tail -f /var/log/syslog
@@ -840,7 +803,7 @@ curl any.api.server.ip
 openstack server create \
   --image "$IMAGE_NAME" \
   --flavor $FLAVOR_ID \
-  --key-name $OS_USERNAME-qcon \
+  --key-name $OS_USERNAME-ghc \
   --user-data $HOME/app-on-openstack/code/lb/deploy.sh \
   --config-drive true \
   --file /root/ips.rc=$HOME/api_ips.rc \
@@ -855,7 +818,7 @@ openstack server create \
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/lb/deploy.sh" target="_blank">deploy.sh</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/lb/deploy.sh" target="_blank">deploy.sh</a></h2>
         </section>
 
         <section>
@@ -916,7 +879,7 @@ more $HOME/worker_env.rc
 openstack server create \
   --image "$IMAGE_NAME" \
   --flavor $FLAVOR_ID \
-  --key-name $OS_USERNAME-qcon \
+  --key-name $OS_USERNAME-ghc \
   --user-data $HOME/app-on-openstack/code/worker/deploy.sh \
   --config-drive true \
   --file /root/os_env.rc=$HOME/os_env.rc \
@@ -929,18 +892,18 @@ openstack server create \
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/worker/requirements.txt" target="_blank">requirements.txt</a></h2>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/worker/deploy.sh" target="_blank">deploy.sh</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/worker/requirements.txt" target="_blank">requirements.txt</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/worker/deploy.sh" target="_blank">deploy.sh</a></h2>
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/worker/watermark/worker.py#L19-24" target="_blank">worker.py</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/worker/watermark/worker.py#L19-24" target="_blank">worker.py</a></h2>
         </section>
 
         <section>
           <h2>Check any Worker Server</h2>
           <pre><code data-trim class="bash">
-ssh -i $HOME/.ssh/id_rsa.qcon_deploy root@any.worker.server.ip
+ssh -i $HOME/.ssh/id_rsa.ghc_deploy root@any.worker.server.ip
 
 tail -f /var/log/cloud-init-output.log
 tail -f /var/log/syslog
@@ -988,7 +951,7 @@ more $HOME/app_env.rc
 openstack server create \
   --image "$IMAGE_NAME" \
   --flavor $FLAVOR_ID \
-  --key-name $OS_USERNAME-qcon \
+  --key-name $OS_USERNAME-ghc \
   --user-data $HOME/app-on-openstack/code/app/deploy.sh \
   --config-drive true \
   --file /root/app_env.rc=$HOME/app_env.rc \
@@ -1001,14 +964,14 @@ openstack server create \
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/app/requirements.txt" target="_blank">requirements.txt</a></h2>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/app/deploy.sh" target="_blank">deploy.sh</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/app/requirements.txt" target="_blank">requirements.txt</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/app/deploy.sh" target="_blank">deploy.sh</a></h2>
         </section>
 
         <section>
           <h2>Check any App Server</h2>
           <pre><code data-trim class="bash">
-ssh -i $HOME/.ssh/id_rsa.qcon_deploy root@any.app.server.ip
+ssh -i $HOME/.ssh/id_rsa.ghc_deploy root@any.app.server.ip
 
 tail -f /var/log/cloud-init-output.log
 tail -f /var/log/syslog
@@ -1036,7 +999,7 @@ more $HOME/app_ips.rc
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/app/watermark/views.py#L37-49" target="_blank">views.py</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/app/watermark/views.py#L37-49" target="_blank">views.py</a></h2>
         </section>
 
         <section>
@@ -1045,7 +1008,7 @@ more $HOME/app_ips.rc
 openstack server create \
   --image "$IMAGE_NAME" \
   --flavor $FLAVOR_ID \
-  --key-name $OS_USERNAME-qcon \
+  --key-name $OS_USERNAME-ghc \
   --user-data $HOME/app-on-openstack/code/lb/deploy.sh \
   --config-drive true \
   --file /root/ips.rc=$HOME/app_ips.rc \
@@ -1060,7 +1023,7 @@ openstack server create \
         </section>
 
         <section>
-          <h2><a href="https://github.com/everett-toews/app-on-openstack/blob/gh-pages/code/lb/deploy.sh" target="_blank">deploy.sh</a></h2>
+          <h2><a href="https://github.com/eglute/app-on-openstack/blob/gh-pages/code/lb/deploy.sh" target="_blank">deploy.sh</a></h2>
         </section>
 
         <section>
@@ -1104,13 +1067,6 @@ curl my.app.lb.server
         </section>
 
 
-
-
-        <section id="next">
-          <h1>Next</h1>
-          <li><a href="http://www.meetup.com/OpenStack-New-York-Meetup/" target="_blank">OpenStack NY Meetup</a></li>
-        </section>
-
         <section>
           <h2>Next Next</h2>
           <ul>
@@ -1119,7 +1075,7 @@ curl my.app.lb.server
             <li>More grindstone</li>
             <li>More security</li>
             <li>Don't run as root :(</li>
-            <li><a href="#/qcon-key">Generate your own SSH keys</a></li>
+            <li><a href="#/ghc-key">Generate your own SSH keys</a></li>
             <li>GitHub deploy SSH keys</li>
           </ul>
         </section>
@@ -1146,20 +1102,16 @@ curl my.app.lb.server
             <table>
               <tbody>
                 <tr>
-                  <td>Everett Toews</td>
-                  <td><a href="https://twitter.com/everett_toews" target="_blank">@everett_toews</a></td>
+                  <td>Egle Sigler</td>
+                  <td><a href="https://twitter.com/eglute" target="_blank">@eglute</a></td>
                 </tr>
                 <tr>
                   <td>Dana Bauer</td>
-                  <td><a href="https://twitter.com/geography76" target="_blank">@geography76</a></td>
+                  <td><a href="https://twitter.com/agentdana" target="_blank">@agentdana</a></td>
                 </tr>
               </tbody>
             </table>
           </center>
-        </section>
-
-        <section id="security-advice">
-          <a href="http://everett-toews.github.io/rackspace-developer-doubleplusgood/presentation/#/secure" target="_blank">Security Advice</a>
         </section>
 
         <section id="devplus-advice">
