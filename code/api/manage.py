@@ -18,7 +18,7 @@ def drop_all():
 
 @manager.command
 def dummy_data():
-    test_image_1 = Image(href="http://i.imgur.com/2lGfskf.jpg")
+    test_image_1 = Image(href="https://github.com/danabauer/app-on-openstack/blob/gh-pages/presentation/img/shasta-lake-web.jpg")
     db.session.add_all([test_image_1])
     db.session.commit()
 
